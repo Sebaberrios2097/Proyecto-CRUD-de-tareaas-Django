@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <main class="container mt-5">
+        <div class="row align-items-center">
+            <div class="col-md-4 offset-md-4 mx-auto">
+                <form action="/tasks/create" method="POST" class="card card-body">
+                    <h1 class="text-center">Crear una tarea</h1>
+                    {% csrf_token %}
+    
+                    <div class="form-group mb-3">
+                        <label for="titulo">Título:</label>
+                        <input type="text" class="form-control" id="titulo" placeholder="ej. Projecto Django" name="titulo" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="descripcion">Descripción:</label>
+                        <textarea class="form-control" placeholder="Escribe la descripción de la tarea aquí" cols="40" rows="10" id="descripcion" name="descripcion" style="resize: none" ></textarea>
+                    </div>
+                    <label for="important">Tarea importante:</label>
+                    <select class="form-select" name="important" id="important">
+                        <option value="True">Si</option>
+                        <option value="False">No</option>
+                    </select>
+    
+                    {% if error %}
+                    <div class="alert alert-danger text-center" role="alert">
+                    {{error}}
+                    </div>
+                    {% endif %}
+                    
+                    <button class="btn btn-primary mt-3">
+                        Crear tarea
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

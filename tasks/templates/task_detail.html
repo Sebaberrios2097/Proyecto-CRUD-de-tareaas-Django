@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container mt-5">
+    <div class="row align-items-center">
+        <div class="col-md-4 offet-md-4 mx-auto">       
+            <form method="POST" class="card card-body">
+                {% csrf_token %}
+                <h1 class="text-center">{{tarea.titulo}}</h1>
+                <div class="form-group mb-3">
+                    <label for="titulo">Título:</label>
+                    <input value="{{tarea.titulo}}" type="text" class="form-control" id="titulo" placeholder="ej. Projecto Django" name="titulo" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea class="form-control" placeholder="Escribe la descripción de la tarea aquí" cols="40" rows="10" id="descripcion" name="descripcion" style="resize: none" >{{form.descripcion.value}}</textarea>
+                </div>
+                <div>
+                    <label for="important">Tarea importante:</label>
+                    <select class="form-select" name="important" id="important">
+                        {% if form.important.value == True %}
+                        <option value="True" selected>Si</option>
+                        <option value="False">No</option>
+                        {% else %}
+                        <option value="True">Si</option>
+                        <option value="False" selected>No</option>
+                        {% endif %}
+                    </select>
+                </div>
+            <div>
+
+            </form>
+
+            <div class="form-group mt-3 mb-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-primary">Guardar</button>
+                    </div>
+                    <div class="col-md-4">
+                        <form action="{% url 'complete_task' tarea.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-secondary">Completar</button>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <form action="{% url 'delete_task' tarea.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

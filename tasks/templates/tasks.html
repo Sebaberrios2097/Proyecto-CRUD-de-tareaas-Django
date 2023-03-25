@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <div class="card card-body">
+        <div class="row">
+            <div class="col-md-9 d-flex align-items-center">
+                <h1 class="mt-5 mb-5">Tareas</h1>
+            </div>
+            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                <a href="/tasks_completed" type="button" class="btn btn-primary mt-4 mr-4">Tareas completadas</a>
+            </div>
+        </div>
+        <div class="row">
+            {% for task in tareas %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{task.titulo}}</h3>
+                        <p class="card-text">{{task.descripcion}}</p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <small class="text-muted">Creado por: {{task.usuario}}</small>
+                        </div>
+                        {% if task.important %}
+                        <strong>Tarea importante</strong>
+                        {% endif %}
+
+                        {% if task.fecha_completado %}
+                        <small class="text-muted">Fecha de término de tarea: {{ task.fecha_completado }}</small>
+                        {% endif %}
+                        <a href="{% url 'task_detail' task.id %}" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
